@@ -1,15 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import linear_model
+import pandas as pd 
 
-x = [1,2,3,4]
-y = [1,2,3,4]
+trainingSet = pd.read_csv('set.csv')
 
-X = [ [1], [2], [3],[4]]        # we build this array of X because fit() method of Linear Regression takes 2d array as first argument and 1d array as second argument
+print(trainingSet)
+
+plt.scatter(trainingSet.Area, trainingSet.Price, color= "red")
+
+
+plt.xlabel("Area")
+plt.ylabel("Prices")
+
 
 lg = linear_model.LinearRegression()
-lg.fit(X,y)
+lg.fit(trainingSet[['Area']], trainingSet.Price )
 
-y_cal = lg.predict([[10]])
-print(y_cal)    # it will print [10.] as output and that is correct
+plt.plot(trainingSet.Area, lg.predict(trainingSet[['Area']]), color = 'Green')
 
+plt.show()
+
+print("\n", lg.predict([[2900]] ))
